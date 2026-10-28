@@ -1,0 +1,1396 @@
+#Sky talks with first letter capital and no caps again even after a dot. She punctuates correctly.
+# wait time 0.5 - 0.7 - 1
+
+~ start
+set sky.name = "Sky"
+set sky.met = true
+set sky.online = true
+set GameState.first_boot = false
+Sky: [wait=3]Salut cowboy[wait=1][speed=1.5]. pas sûre que tu te connecterais.[do set_line_editable("Terminal", true)]
+- debug [if debug_mode == true]
+	=> debug
+- bonjour?
+Sky: [speed=1.2]Ta maman ne t'a jamais dit de [i]"ne pas"[/i] insérer les clés usb des autres?[wait=1][next=auto]
+Sky: [speed=1.1]Surtout ceux que t'as rencontré dans les ruelles désertes.[wait=1][next=auto]
+do save_from_dialogue("Sky", 1)
+~ save_point_1
+Sky: Pourquoi tu l'as branchée?
+
+
+- t'es qui? [if sky.asked_who_are_you == 0]
+	set sky.asked_who_are_you += 1
+	Sky: Je suis Sky.[wait=1][next=auto]
+	=>< RadiotextExplanation
+- tu m'as hacké?
+	Sky: Bien sûr que non [wait=0.5][i]idiot.[/i][next=auto]
+	Sky: Bref,[wait=0.5] je suis Sky.[wait=1] désolée pour l'incruste.[next=auto]
+	=>< RadiotextExplanation
+- t'étais mignonne
+	Sky: oh, [wait=1]merci[wait=0.5] :D[wait=1][next=auto][do sky.romance += 1][do sky.relation += 1]
+	do create_empty_lines("Sky",false)
+	Sky: Je suis Sky.[wait=1][next=auto]
+	Sky: La clé que tu as [i]branché[/i] avait un émetteur d'ondes radio[wait=0.5], en plus de ce terminal.[next=auto]
+	Sky: Pas sûre que tu le garderais pour être honnête.[wait=0.5][next=auto]
+	do create_empty_lines("Sky",true)
+	Sky: Bref,[next=auto]
+	Sky: Elle utilise des ondes radio à [url=FreeDictionaryLong Range][u]longue portée[/u][/url] pour transmettre des données. [url=FreeDictionaryE2E][u]E2E[/u][/url] [wait=0.25]chiffré et [url=FreeDictionaryDecentralized][u]décentralisé[/u][/url]. [next=auto]
+	Sky: Ca nous permet de communiquer sans que les gouvernements ou les entreprisent nous espionnent.[next=auto]
+
+
+do save_from_dialogue("Sky", 2)
+~ save_point_2
+if type_speed == 0.08:
+	set type_speed = 0.07
+Sky: Tu as sûrement des questions.
+
+- pourquoi moi
+	#music "The Tower Will Blow Up" starts
+	Sky: Cette partie risque de te surprendre[wait=0.7], alors essaye de suivre.[next=auto]
+	Sky: Normalement je donne ces clés à des inconnus. pour les sortir du net.[next=auto]
+	do Global.play_music("res://Sounds/music/RadioText - Tense - Master.wav")
+	Sky: Le vieux web est mort depuis bien longtemps[wait=0.5] et le combat des [url=FreeDictionaryCypherpunk][u]cypherpunks[/u][/url] est déjà perdu.[next=auto]
+	Sky: J'essaye d'attirer plus de personnes dans les ondes pour la communication. où ils ne seront pas sous surveillance constante.[next=auto]
+	Sky: Mais pour toi...[wait=1] les choses sont un peu différentes.[next=auto]
+	- comment ça différentes
+	~ blow_up
+	#music "The Tower Will Blow Up" drops
+	# sky.var_1 is used on RumoR terrorist blew my tower
+	Sky: La tour où tu travailles[wait=1] va exploser[wait=0.7] d'ici les [b]10 prochaines heures[/b].[set GameState.sky.var_1 = 1][wait=1.5][next=auto]
+	Sky: A moins que tu sois suicidaire[wait=0.5], ne va pas travailler demain.[next=auto]
+	if type_speed == 0.07:
+		set type_speed = 0.06
+
+	- [shake]wtf[/shake]
+		Sky: Je comprends que ce soit troublant[wait=0.7] et soudain.[wait=0.5] Je suis désolée.[next=auto]
+		Sky: Je vais essayer de tout t'expliquer.[next=auto]
+		=>< questions
+
+
+	- pourquoi
+		=>< questions
+
+
+	- appelle la police
+		=>< the_police
+		- Arkhos?
+			=>< Syndicate
+			=>< an_arkhos
+			- et les employés?
+				=>< people_inside
+				- mon salaire?
+					=>< my_money
+				- je dois faire quoi
+					=> what_to_do
+			- mon salaire?
+				=>< my_money
+				- 3 personnes?
+					=>< people_inside
+				- je dois faire quoi
+					=> what_to_do
+
+		- mon salaire?
+			=>< my_money
+			- 3 personnes?
+				=>< people_inside
+				- comment tu sais
+				=>< Syndicate
+				=>< an_arkhos
+			- qui est derrière tout ça
+				=>< Syndicate
+				=>< an_arkhos
+
+		- et les employés?
+			=>< people_inside
+			- mon salaire?
+				=>< my_money
+				- qui est derrière tout ça
+					=>< Syndicate
+					=>< an_arkhos
+			- qui est derrière tout ça
+				=>< Syndicate
+				=>< an_arkhos
+				- et notre salaire alors
+					=>< my_money
+				- je dois faire quoi
+					=> what_to_do
+
+		- je dois faire quoi
+			do GameState.witness += 1
+			Sky: Ne panique pas. tout ce que tu as à faire c'est faire profil bas un moment. [url=FreeDictionaryArkhos][u]Arkhos[/u][/url] ont dit qu'ils vous rembourseraient.[next=auto]
+			Sky: Essaye de ne pas attirer l'attention inutilement. on s'occupe de toi.
+			- qui ça on?
+				Sky: Nous sommes un groupe de cyber-activistes nommés [url=FreeDictionarySyndicate][b][u]Le Syndicat[/u][/b][/url][next=auto]
+				Sky: [url=FreeDictionaryAn-Arkhos][b][u]An-Arkhos[/u][/b][/url] est un autre groupe comme nous.[wait=1] bien plus radical[wait=0.5] et compétent.[next=auto]
+				Sky: On dirait pas qu'ils en ont après les employés mais plutôt les grosses entreprises.[next=auto]
+				Sky: C'est comme ça que je les ai convaincus de te laisser partir.[next=auto]
+			- que veulent arkhos
+				Sky: On dirait pas qu'ils en ont après les employés mais plutôt les grosses entreprises. les machines elles-même.[next=auto]
+				Sky: Nous sommes un groupe comme [url=FreeDictionaryAn-Arkhos][b][u]An-Arkhos[/u][/b][/url][wait=1] mais contrairement à eux on fait attention aux civils et on ne cause pas de victimes.[next=auto]
+				Sky: Nous nous appelons [url=FreeDictionarySyndicate][b][u]Le Syndicat[/u][/b][/url]. Grâce à mes liens dans Arkhos j'ai réussi à les convaincre d'au moins me laisser contacter les employés.[next=auto]
+				Sky: Je suis désolée que tu sois embarqué là dedans.[if sky.romance > 0] j'espérais que les circonstances de notre rencontre soient différentes.[/if]
+			=> arkhos_sent_this_file
+
+
+- ils espionnent?
+	set syndicate_explained = true
+	Sky: Je fais partie d'un groupe de [i]cyber-activistes[/i]. [wait=1]on s'appelle [url=FreeDictionarySyndicate][b][u]Le Syndicat[/u][/b][/url][next=auto]
+	Sky: Tu te souviens de la dernière manifestation? la dernière émeute?[next=auto]
+	Sky: La dernière chose qui a mit le gouvernement en colère[wait=1], et fait saigner les entreprises?[next=auto]
+	- je me souviens pas
+	- les manifestations pour le climat
+		Sky: Ouais, la crise d'énergie[wait=1]. les manifestations pour le climat.[wait=0.5] il y a 10 ans. bien sûr.[next=auto]
+		Sky: Regarde à qui ça a finalement profité.[wait=0.5] pas le climat[wait=0.5], pas les gens.[next=auto]
+	Sky: Tu vois c'est ça le problème. personne ne se lève.[next=auto]
+	Sky: Le net est le seul endroit où l'on s'exprime, et pourtant ça ne donne rien. tout le monde est en ligne et sous surveillance constante. pourquoi tu penses que chaque révolte est coupée avant de pouvoir grandir.[next=auto]
+	Sky: Le vieux web est mort depuis bien longtemps. le combat des [url=FreeDictionaryCypherpunk][u][i]cypherpunks[/i][/u][/url] est perdu![wait=1][next=auto]
+	do Global.play_music("res://Sounds/music/RadioText - Tense - Master.wav")
+	Sky: Seuls les [url=FreeDictionaryCorp-Aristos][u][i]aristos d'entreprises[/i][/u][/url] l'utilisent pour diriger les gens.[next=auto]
+	Sky: Ils leur donnent l'impression que leurs avis comptent dans ces chambre d'écho[wait=0.5], isolées[wait=0.5], sans aucune influence réelle ou autre chose.[next=auto]
+	Sky: Je fabrique ces clés dans mon temps libre, et je les donne souvent à des inconnus dans la rue[wait=1], comme toi.[next=auto]
+	Sky: J'essaye d'en sortir le plus possible du net.[wait=1] mais pour toi... les choses sont un peu différentes.
+	- comment ça différentes
+	=> blow_up
+
+
+
+
+
+
+
+
+
+
+
+
+~ what_to_do
+Sky: Ne panique pas. tout ce que tu as à faire c'est faire profil bas un moment. [url=FreeDictionaryArkhos][u]Arkhos[/u][/url] ont dit qu'ils vous rembourseraient.[next=auto]
+Sky: Essaye de ne pas attirer l'attention inutilement. on s'occupe de toi.[next=auto]
+~ arkhos_sent_this_file
+if type_speed == 0.06:
+	set type_speed = 0.05
+Sky: [url=FreeDictionaryArkhos][u][b]Arkhos[/b][/u][/url] a aussi envoyé ce fichier.[wait=0.7] je ne pense pas que ton ancien travail va te manquer.[next=auto]
+Sky: Chargement |[skip][loading interval=0.25, delay=0] █ █ █ █ █ █ █ █ █ █ █ █ █ █ █ █ [/loading]| [loading interval=0.1, delay=8.25]Terminé[/loading][wait=8.25][do Global.variable_wait(GameState.sky, &"cache_file", 1, 8.25)][next=auto]
+do save_from_dialogue("Sky", 3)
+~ save_point_3
+Sky: Tu peux voir le fichier dans ton [i]cache[/i] quand il est téléchargé.
+- compris
+- autre chose?
+
+Sky: Normalement en tant que le [url=FreeDictionarySyndicate][u][b]Syndicat[/b][/u][/url] on essaye d'être assez cool et mystérieux.[next=auto]
+Sky: On accepte et contacte uniquement les personnes via des tests chiffrés pour voir si ils feraient l'affaire.[wait=1] mais dans ton cas on a dû passer tout ça et contacter directement.[next=auto]
+Sky: Pour rendre Radiotext plus familier pour toi j'ai mis Flynn en tant que deuxième connection désignée. tu peux lui poser tes questions.[next=auto]
+
+Sky: Quand tu seras plus à l'aise avec les ondes radio, je te demanderai si tu veux nous rejoindre ou non.[wait=2]\n\nPour l'instant va sur ton terminal et écrit "connecter" une nouvelle fois.[next=auto]
+Sky: Je te laisse maintenant, à plus.[wait=0.5] tu peux appuyer sur "TAB" pour revenir à ton terminal.[next=auto]
+do save_from_dialogue("Sky", 4)
+~ save_point_4
+Sky: Oh, aussi, les terminaux envoient des réponses automatiques quand on est pas là. ne sois pas surpris.[do Global.auto_offline_wait("Sky", 60, "okay")]
+- ok
+- [erase time=0.0, alpha=0.0]à plus tard[/erase]
+- [erase time=0.0, alpha=0.0]salut[/erase]
+- [erase time=0.0, alpha=0.0]bye[/erase]
+- [erase time=0.0, alpha=0.0]à plus[/erase]
+- [erase time=0.0, alpha=0.0]ciao[/erase]
+
+
+
+do save_from_dialogue("Sky", 5)
+~ save_point_5
+do SteamManager.unlock_achievement("WELCOME_TO_RADIOTEXT")
+do GameState.npc_goes_offline(GameState.sky, 500)
+while sky.online == false
+	=>< offline 
+
+do GameState.npc_goes_online(sky)
+
+
+Sky: I'm back for a short time.[next=auto]
+Sky: How was it? Were you able to adapt to Radiotext?
+- kind of
+	Sky: You seemed as a sharp one :) guess I was right.
+	- you were right?
+		Sky: We had a little bet inside. Whether you'd catch up to speed or not.[wait=0.7] I played on you.[next=auto]
+		- thanks
+			Sky: I should thank you. you basically got me a brand new [url=FreeDictionaryGlass][u]glass[/u][/url].[next=auto]
+		- fuck you
+			Sky: Sorry.[do sky.romance -= 1][next=auto]
+	- what is next
+- not yet
+	Sky: No need to rush. you'll get used to it.
+	- what is next
+
+Sky: I will ask you whether you want to join the [b]Syndicate[/b] or not.[next=auto]
+Sky: [do! Global.demo_ending_explosion()][shake]Shit[/shake][wait=10] so it begins.
+- [shake]what the fuck was that?[/shake]
+- [erase time=0.0, alpha=0.0]wtf[/erase]
+- [erase time=0.0, alpha=0.0]wtf was that[/erase]
+Sky: That was the dropping tower.[set GameState.tower_blown_up = true][wait=2][next=auto]
+Sky: There is no going back now.[next=auto]
+Sky: Have you made your decision?[next=auto]
+- [shake]I decided[/shake]
+	Sky: I'm hoping it is against the falling tyrants.
+	- [shake]I want in[/shake]
+		do GameState.syndicate_left += 1
+		Sky: Welcome then[wait=1] rookie.[next=auto]
+		Sky: It is fun, you're gonna love it.[next=auto]
+	- [shake]not interested[/shake]
+		Sky: I'll be damned.[wait=1] really thought you were like me.[next=auto]
+		Sky: Sick and tired of the constant clouds carrying poisonous lead and [url=FreeDictionaryPFAS][u]PFAS[/u][/url].[wait=0.7] pollution so thick you can't even see the horizon anymore.[next=auto]
+		Sky: Income inequality all time high while the new generations live shorter than the previous ones. come on man![wait=1] are we gonna live out of our short and miserable lives without fighting back.[next=auto]
+		Sky: Are you sure this is your definitive answer?
+		- [shake]yes I am out[/shake]
+			Sky: Okay.[wait=2][next=auto]
+			Sky: I am not gonna preach it to the choir.[wait=1] leaving now.[next=auto]
+			set GameState.player_in_syndicate = 3
+			=> player_out
+		- [shake]no I want in[/shake]
+			Sky: [wait=1]Thank you.[wait=1] for a moment I thought I lost you there.[next=auto]
+			Sky: Whew[wait=1], welcome then[wait=1] rookie.[next=auto]
+			Sky: It is fun, you're gonna love it.[next=auto]
+- [shake]need more time[/shake] [if GameState.casey.var_2 > 0 or GameState.arkhos_left > 0]
+	Sky: Understood.[next=auto]
+	Sky: Wishing you happy freq hunting. hoping that next time you are back, you will join the fight against the tyrants.[next=auto]
+	set GameState.player_in_syndicate = 2
+	=> player_out
+
+~ first_task
+do GameState.syndicate_left += 1
+set GameState.player_in_syndicate = 1
+do save_from_dialogue("Sky", 7)
+~ save_point_7
+set GameState.current_act = 2
+do! Global.create_custom_line("Terminal", str(second_act.size()) + " new frequencies acquired.")
+do! Global.create_custom_line("Terminal", "Connection pool updated.")
+do Global.returning_message("Terminal", "awaiting_command") # 30 for awaiting_commands title
+Sky: I believe you already passed the tests Flynn gave you.
+- Yes I did
+	Sky: Well done [if GameState.sky.romance > 0 and GameState.player_name != ""]{{GameState.player_name}}[/if][if GameState.sky.romance > 0 and GameState.player_name == ""]rookie[/if][next=auto]
+- Not yet
+	Sky: Gotta catch up [if GameState.sky.romance > 0 and GameState.player_name != ""]{{GameState.player_name}}[/if][if GameState.sky.romance > 0 and GameState.player_name == ""]rookie[/if] you're falling behind.[next=auto]
+# Sky: There seems to be an issue.[wait=1] it is not clear right now but once it is I'll let you know. till then,
+Sky: Since you no longer have a job to do I'll give you something to entertain yourself with.[next=auto]
+Sky: Some of the [url=FreeDictionaryInternet-people][u]internet-people[/u][/url] been leading people here,[wait=0.5] advertising it as surveillance free texting.[next=auto]
+Sky: But after people install radiotext they start wandering aimless.[wait=0.5] I want you to give a reason to them.[next=auto]
+Sky: Till I ping you again, keep connecting to available frequencies and convince people to stand up. mention [b]The Syndicate[/b], we can always use more people for [i]the protest[/i].
+- wasnt this secret
+	Sky: We are not going to tell them everything I told you.[wait=1] but in order to revolt, we need the people to organize in masses.[next=auto]
+- do I test them myself
+	do GameState.sky.relation += 1
+	Sky: Hahah, no.[wait=0.5] you don't need to bother with that. Flynn got it covered.[next=auto]
+- spread propaganda? [if GameState.cop_right > 1]
+	Sky: The truth.[wait=1] which, people are crushed under[wait=0.5] without knowing it[next=auto]
+	Sky: How would you feel if the reality was hidden from you?[wait=1] if your workplace slowly turned into a rickety robo shack uninformed?[next=auto]
+	Sky: The bad ones been using it from the beginning of time.[wait=0.5] why can't we as well?
+	Sky: People will always side with the system unless you tell them[wait=1], show them.
+	- I understand
+		Sky: Thank you.[wait=0.5] I want people to breathe fresh air[wait=0.5] not toxic waste.[next=auto]
+	- Okay I will do it
+		Sky: Thank you.[next=auto]
+	- sound awful a lot like arkhos [if GameState.trix_var_3 > 0]
+		=>< ARKHOS
+	Sky: I hope you see why we are doing this.[next=auto]
+
+Sky: Just ask them whether they want to [i]join Syndicate[/i], most people find us cool.[next=auto]
+Sky: Ask their TUF. [set syndicate_recruiting = true ]It is how we add them to the notification channel for [i]the protest[/i].[next=auto]
+Sky: There is one more issue I need to tell you[wait=1.0], we suspect there is an [url=FreeDictionaryundercover][u]undercover[/u][/url] inside the waves.[next=auto]
+Sky: However it is not clear now[wait=0.5] and I don't want a newbie going around accusing people.[next=auto]
+Sky: I'll let you know once we are certain.[next=auto]
+#Sky: Just let me know next time if you talk to anyone suspicious.[next=auto]
+Sky: For now just focus on recruiting people.[wait=1.0] see you later rookie.[do Global.auto_offline_wait("Sky", 180, "see you")]
+- see you
+- your picture is cool [if plugin_bitmap_installed == 2]
+	do GameState.sky.romance += 1
+	Sky: Huh[wait=1], oh that. thank you.[next=auto]
+	Sky: It has been some time since I've done that[wait=0.5], yeah.[wait=1] thanks.[next=auto]
+	if GameState.sky.romance > 1:
+		Sky: You know[wait=1] you were cute too[wait=1] back in the alley, when we met.[next=auto]
+
+
+
+
+
+~ player_out
+
+
+do save_from_dialogue("Sky", 8)
+~ save_point_8
+do SteamManager.unlock_achievement("CHEAT_DEATH")
+if GameState.current_act == 1:
+	set GameState.current_act = 2 # MENTAL NOTE
+	do! Global.create_custom_line("Terminal", str(second_act.size()) + " new frequencies acquired.")
+	do! Global.create_custom_line("Terminal", "Connection pool updated.")
+	do Global.returning_message("Terminal", "awaiting_command") # 30 for awaiting_commands title
+
+if player_in_syndicate == 1:
+	do GameState.npc_goes_offline(GameState.sky, 950)
+	while sky.online == false
+		=>< offline 
+
+	do GameState.npc_goes_online(sky)
+
+else:
+	do GameState.npc_goes_offline(GameState.sky, 700)
+	while sky.online == false
+		=>< offline 
+
+	do GameState.npc_goes_online(sky)
+
+
+if player_in_syndicate == 3:
+	=> sky_lures_player
+elif player_in_syndicate == 2:
+	=> sky_tries_to_convince
+else: 
+	=> sky_continues
+
+#PLAYER OUT
+
+~ sky_lures_player
+Sky: Hey again.
+- hey
+Sky: I am sorry for snapping at you like that earlier.[wait=1] it's just that...[wait=1][next=auto]
+Sky: It starts to weigh in on you after some time.[wait=1] we are fighting against such huge forces that nature has ever seen.[wait=1] hell, it's against nature is what it is.[next=auto]
+Sky: And we constantly get beaten down.[wait=1] and I know that[wait=0.5], I understand that people can choose not to participate in this war.[wait=1] or at least pretend like they are not affected and don't care about it.[next=auto]
+Sky: I just got tired of all the fighting and it must've taken its toll on me.[wait=1] hope you have no hard feelings.
+- no hard feelings
+	Sky: Glad to hear.[next=auto]
+	=> how_was_life_before
+- just a little
+	Sky: :D[wait=1] noted.
+	=> how_was_life_before
+- fuck you Sky
+	do sky.relation -= 1
+	Sky: I[wait=1] am sorry.[wait=1] didn't want you to feel this way.[next=auto]
+	Sky: You've lost your job and became a wanted target in the same day.[wait=1] I shouldn't have waited you to recover from all that immediately.[wait=1] my bad.[next=auto]
+	=> how_was_life_before
+
+
+~ how_was_life_before
+Sky: Let's talk about something else. I don't wanna bother you about it anymore.[next=auto]
+Sky: How was your life before I unintentionally dragged you into this?[set sky.progress = 1]
+- boring
+	Sky: Has all this action brought anythting new at least?[next=auto]
+	Sky: Apart from the dangers I mean[wait=0.5], are you enjoying it here so far?
+	- yes
+		Sky: Cool.[wait=0.5] at least its not only downsides.[next=auto]
+	- not much
+		Sky: You'll get used to it.[wait=0.5] waves can mean many things to people[wait=1], but I don't think boring is ever one of them.[next=auto]
+
+- stable
+	Sky: Sorry to be the one that ended it for you.
+	- wasnt your fault
+		Sky: Thank you. for trying to make me feel better.[next=auto]
+	- me too
+		Sky: It would've been nice to meet under different circumstances.[next=auto]
+- happy
+	set sky.progress = 0
+	Sky: If you mean you were happy because you had a job and friends to chat in there, I have news for you.[next=auto]
+
+# yolsky mentioned
+if sky.progress == 1:
+	Sky: I have news.[next=auto]
+# resetting the progress value again
+Sky: Your friend from work joined the Syndicate.[set sky.progress = 0] 
+- who
+	Sky: Yolsky.[wait=1.0] I didn't want to say anything before because I wasn't sure he would plug the stick.[next=auto]
+	Sky: He doesn't know everything I told you. but he agreed to come to [i]the protest[/i].[next=auto]
+	
+- Yolsky?
+	Sky: Yes.[wait=0.5] how did you guess?[wait=0.5] have you connected to him?
+	- yes
+	- lucky guess
+	Sky: Good.[wait=0.5] he doesn't know everything I told you. but he agreed to come to [i]the protest[/i].[next=auto]
+	do sky.cooldown_words.append("YOLSKY")
+
+- Jeff?
+	Sky: No.[wait=1] Yolsky.[wait=0.5] I didn't get a respond from Jeff.[wait=1][next=auto]
+	Sky: I didn't get a response from him.[wait=1] but I believe he is safe[wait=0.5], no news mentioned any deaths.
+
+# sky explains the undercover cop
+Sky: Whether you are part of the stand or not, I should let you know someting.[next=auto]
+Sky: We figured there is an [url=FreeDictionaryundercover][u]undercover[/u][/url] among the waves.[next=auto]
+Sky: We don't know who yet.[wait=1] I would've used your help finding them if you were interested but doesn't wanna sound like a cheapskate trying to lure you in.[next=auto]
+Sky: I am not gonna be able to share information with you anymore due to Syndicate rules but remember to lay low[wait=1]. don't trust everyone straight away.
+- changed my decision
+	Sky: You mean?
+	- want to join Syndicate
+		Sky: Sounds like you don't wanna miss the gossip.[next=auto]
+		Sky: What changed your mind?[wait=1] don't wanna bother with you trying to leave down the road.[next=auto]
+		Sky: Are you sure about your decision?
+		- yes I am
+			Sky: Welcome to The Syndicate then rookie.[next=auto]
+			Sky: It's fun[wait=1], you're gonna love it.[next=auto]
+			=> player_convinced
+	- nevermind
+		Sky: Okay.[next=auto]
+- understood
+- I can handle myself
+
+Sky: Stay safe.[wait=1] from now on, you are on your own.[next=auto]
+Sky: Before I go[wait=1], I'd like to ask something.[next=auto]
+Sky: Why don't you fight?[wait=1] against the corps I mean.[wait=1] how can you not fight?
+- I am scared
+	Sky: I[wait=0.5] understand[wait=0.5], I think. they have all the resources in the world and may come after you.[next=auto]
+	Sky: You only live one life time and the constant battling wears you down after some point.[next=auto]
+	Sky: Just wish I can do the same.[wait=0.5] look away and live my only life moderately happy[wait=0.5] with whats left of it.[next=auto]
+	Sky: [wait=1]But since I only live once[wait=1], I would like to make it count.[wait=1.5] And I am tired of living scared.
+	- changed my decision
+		Sky: You mean?
+		- want to join Syndicate
+			Sky: Are you sure about your decision?
+			- yes I am
+				Sky: Welcome to The Syndicate then rookie.[next=auto]
+				Sky: It's fun[wait=1], you're gonna love it.[next=auto]
+				=> player_convinced
+	- thank you but no
+		set sky.progress = 1
+
+- we cant win
+	Sky: You can not force a change alone.[wait=1] But we can,[wait=0.5] together.[next=auto]
+- its pointless
+	Sky: You can not force a change alone.[wait=1] But we can,[wait=0.5] together.[next=auto]
+- we already lost
+	Sky: You can not force a change alone.[wait=1] But we can,[wait=0.5] together.[next=auto]
+- they earned it
+	Sky: [speed=1.5]What do you mean they earned it![next=auto]
+	=> remind_the_mails
+
+~ remind_the_mails
+Sky: You've seen the mails, you've seen what those bastards are onto.[next=auto]
+Sky: They do not care about you, me, anyone.[wait=0.5] They are just trying to maximize their revenue.[next=auto]
+Sky: Their endless stream of dopamine pomping share values, going up like fucking clicker game![next=auto]
+Sky: They were going to kick you out in the last second without any compensation and turn the whole thing into a soulles money machine.[wait=0.5] its cosmic horror level shit[wait=0.5], their never ending hunger.
+Sky: God knows how many else they did that to.[wait=1] How many more should there be just because we refuse to fight?
+- changed my decision
+	Sky: You mean?
+	- want to join Syndicate
+		Sky: Are you sure about your decision?[wait=1] don't wanna bother with you trying to leave down the road.[next=auto]
+		- yes I am
+			Sky: Welcome to The Syndicate then rookie.[next=auto]
+			Sky: It's fun[wait=1], you're gonna love it.[next=auto]
+			=> player_convinced
+	- nevermind
+		Sky: Yeah.[wait=1] sure.[next=auto]
+		=> player_doesnt_want_in
+- count me in
+	=> player_convinced
+- okay ffs Im in [if sky.progress == 1]
+	=> player_convinced
+- I said Im out [if sky.progress == 1]
+	=> player_doesnt_want_in
+- Ill pass [if sky.progress == 0]
+	=> player_doesnt_want_in
+
+
+
+# if yes, sky happy, sighs relief and welcomes the player
+~ player_convinced
+Sky: [wait=1]Thank you.[wait=1] for a moment I thought I lost you there.[next=auto]
+=> convinced_player_goes_offline
+
+# if still no angry sky swears and goes offline
+~ player_doesnt_want_in
+Sky: Got it.[wait=1] okay.[wait=1] wasn't gonna work out with such an ideology difference anyway.[next=auto]
+=> player_did_not_join_second_time_offline
+
+
+
+
+~ sky_tries_to_convince
+Sky: Hey again.
+- hey
+	Sky: Have you made up your mind yet or do you need convincing?
+	- I want in
+		Sky: Welcome to The Syndicate then rookie.[next=auto]
+		Sky: It's fun[wait=1], you're gonna love it.[next=auto]
+		=> convinced_player_goes_offline
+	- not interested
+		Sky: I'll be damned.[wait=1] really thought you were like me.[next=auto]
+		Sky: Sick and tired of the constant clouds carrying poisonous lead and [url=FreeDictionaryPFAS][u]PFAS[/u][/url].[wait=0.7] pollution so thick you can't even see the horizon anymore.[next=auto]
+		Sky: Income inequality all time high while the new generations live shorter than the previous ones. come on man![wait=1] are we gonna live out of our short and miserable lives without fighting back.[next=auto]
+		Sky: Are you sure this is your definitive answer?
+		- [shake]yes I am out[/shake]
+			Sky: Okay.[wait=2][next=auto]
+			Sky: I am not gonna preach it to the choir.[wait=1] leaving now.[next=auto]
+			set GameState.player_in_syndicate = 3
+			=> player_did_not_join_second_time_offline
+		- [shake]no I want in[/shake]
+			Sky: [wait=1]Thank you.[wait=1] for a moment I thought I lost you there.[next=auto]
+			Sky: Whew[wait=1], welcome then[wait=1] rookie.[next=auto]
+			Sky: It is fun, you're gonna love it.[next=auto]
+			=> convinced_player_goes_offline
+
+	- need convincing
+		Sky: You don't really need convincing.[wait=0.5] you can clearly see how fucked up the world is[wait=0.5] and who it is to blame.[next=auto]
+		Sky: You're just hesitant and need more motivation.[next=auto]
+		Sky: I was scared when we first started doing it.[wait=1] we knew the risks, we knew we weren't wanted in this world.[next=auto]
+		Sky: Yet we still continued.[wait=1] because sometimes you need to ask yourself[wait=1], who will do it if I don't?
+		- I am convinced
+			Sky: Welcome to The Syndicate then rookie.[next=auto]
+			Sky: It's fun[wait=1], you're gonna love it.[next=auto]
+			=> convinced_player_goes_offline
+		- not interested
+			Sky: I'll be damned.[wait=1] really thought you were like me.[next=auto]
+			Sky: Sick and tired of the constant clouds carrying poisonous lead and [url=FreeDictionaryPFAS][u]PFAS[/u][/url].[wait=0.7] pollution so thick you can't even see the horizon anymore.[next=auto]
+			Sky: Income inequality all time high while the new generations live shorter than the previous ones. come on man![wait=1] are we gonna live out of our short and miserable lives without fighting back.[next=auto]
+			Sky: Are you sure this is your definitive answer?
+			- [shake]yes I am out[/shake]
+				Sky: Okay.[wait=2][next=auto]
+				Sky: I am not gonna preach it to the choir.[wait=1] leaving now.[next=auto]
+				set GameState.player_in_syndicate = 3
+				=> player_did_not_join_second_time_offline
+			- [shake]no I want in[/shake]
+				Sky: [wait=1]Thank you.[wait=1] for a moment I thought I lost you there.[next=auto]
+				Sky: Whew[wait=1], welcome then[wait=1] rookie.[next=auto]
+				Sky: It is fun, you're gonna love it.[next=auto]
+				=> convinced_player_goes_offline
+
+- I decided
+	Sky: Cool.[wait=1] Hoping it is against the falling tyrants.
+	- I want in
+		Sky: Welcome to The Syndicate then rookie.[next=auto]
+		Sky: It's fun[wait=1], you're gonna love it.[next=auto]
+		=> convinced_player_goes_offline
+	- not interested
+		Sky: I'll be damned.[wait=1] really thought you were like me.[next=auto]
+		Sky: Sick and tired of the constant clouds carrying poisonous lead and [url=FreeDictionaryPFAS][u]PFAS[/u][/url].[wait=0.7] pollution so thick you can't even see the horizon anymore.[next=auto]
+		Sky: Income inequality all time high while the new generations live shorter than the previous ones. come on man![wait=1] are we gonna live out of our short and miserable lives without fighting back.[next=auto]
+		Sky: Are you sure this is your definitive answer?
+		- [shake]yes I am out[/shake]
+			Sky: Okay.[wait=2][next=auto]
+			Sky: I am not gonna preach it to the choir.[wait=1] leaving now.[next=auto]
+			set GameState.player_in_syndicate = 3
+			=> player_did_not_join_second_time_offline
+		- [shake]no I want in[/shake]
+			Sky: [wait=1]Thank you.[wait=1] for a moment I thought I lost you there.[next=auto]
+			Sky: Whew[wait=1], welcome then[wait=1] rookie.[next=auto]
+			Sky: It is fun, you're gonna love it.[next=auto]
+			=> convinced_player_goes_offline
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+~ convinced_player_goes_offline
+
+do save_from_dialogue("Sky", 10)
+~ save_point_10
+do GameState.npc_goes_offline(GameState.sky, 900) # SHOULD COME BACK AND GIVE THE FIRST TASKS / NEAR EARLY ACT2
+while sky.online == false
+	=>< offline 
+do GameState.npc_goes_online(sky)
+=> first_task
+
+
+
+
+
+
+
+
+
+
+~ sky_continues
+
+
+Sky: Hey [if GameState.player_name != ""]{{GameState.player_name}}[/if][if GameState.player_name == ""]rookie[/if][next=auto]
+# player completes a mission to triangulate a frequency CEO speech
+Sky: I'm gonna give you a quick side task.[next=auto]
+Sky: SunLit CEO is giving a speech at their annual conference and I wan't you to locate and cancel it.[next=auto]
+do sky.cooldown_words.append("triangulator mission given")
+Sky: Their voice is better not heard after causing so much trouble both domestically and internationally.[next=auto]
+- How do I locate?
+	=>< how_do_I_locate_tuf
+	- How do I cancel?
+		=>< how_do_I_noise_cancel
+- How do I cancel?
+	=>< how_do_I_noise_cancel
+	- How do I locate?
+		=>< how_do_I_locate_tuf
+
+
+Sky: Inside Specter when you type [b]"transmit frequency"[/b] and follow it up with a coordinate, it picks the closest triangulator nodes and starts emitting radio waves from them.[next=auto]
+Sky: If you don't specify a sound file from your cache, it automatically transmits white noise which is perfect for noise cancelling.[next=auto]
+Sky: If you make your frequency inverse version of the speech wave, basically creating a DNA shape, you can silence it.[next=auto]
+- censor the censors
+	do sky.relation += 1
+	Sky: Exactly. let them taste their own medicine.[next=auto]
+- gotta go silence CEOs [if sky.relation > 2]
+	Sky: Hyped huh.[wait=0.5] ,t's cool fighting against them while your neck is not on the line.[next=auto]
+- will do
+Sky: This is a side-quest for you to better understand how we operate and what we usually do.[wait=0.5] other than this, I want you to keep gathering people for the protest.[next=auto]
+Sky: And don't take too long [if GameState.player_name != ""]{{GameState.player_name}}[/if][if GameState.player_name == ""]rookie[/if]. I'll ask you who you brought in next time I'm around.[next=auto]
+if yolsky.cooldown_words.has("we are dating"):
+	do yolsky.cooldown_words.erase("we are dating")
+	do sky.romance += 1
+	Sky: Also why did you tell Yolsky that we are dating?[next=auto]
+	if sky.romance >= 3:
+		Sky: Look[wait=0.5], I like you as well.[wait=0.5] but you can't go around saying random stuff.[next=auto]
+	else:
+		Sky: Should've talked with me first.[next=auto]
+
+
+
+
+
+
+
+
+
+
+
+do save_from_dialogue("Sky", 12)
+~ save_point_12
+do GameState.npc_goes_offline(GameState.sky, 1420)
+while sky.online == false
+	=>< offline 
+do GameState.npc_goes_online(sky)
+
+
+
+
+
+
+
+
+
+
+# Sky gives the 
+Sky: Hey.[next=auto]
+~ who_joined_syndicate
+if sky.cooldown_words.has("who_joined_syndicate_asked") == false: # dialogue manager didnt like this and gave an error
+	Sky: How is your first task going? Did you convince anyone to join the Syndicate?[do sky.cooldown_words.append("who_joined_syndicate_asked")]
+	- yes I did [if joined_syndicate.size() > 0]
+		do sky.relation += 1
+		Sky: That's nice. [if sky.relation > 1][wait=0.5]you are working fast[wait=0.5] and quick at adapting.[wait=0.5][/if][if sky.romance >= 2] I like it.[/if][next=auto]
+		Sky: Okay give me their TUF so I can add them to [i]the protest[/i].
+		=> giving_tufs
+	- I couldn't [if joined_syndicate.is_empty()]
+		Sky: That's okay, there will be others.[next=auto]
+		=> continues_after_taking_tufs
+else:
+	Sky: Anyone else?
+	~ giving_tufs
+	- {{GameState.frequencies["CASEY"]}} [if casey.in_syndicate == 1]
+		set casey.in_syndicate = 2
+		set sky_knows_these_joined.append("CASEY")
+	- {{GameState.frequencies["chrome"]}} [if chrome.in_syndicate == 1]
+		set chrome.in_syndicate = 2
+		set sky_knows_these_joined.append("chrome")
+	- {{GameState.frequencies["Elektrat"]}} [if elektrat.in_syndicate == 1]
+		set elektrat.in_syndicate = 2
+		set sky_knows_these_joined.append("Elektrat")
+	- {{GameState.frequencies["Kitt-E"]}} [if kitte.in_syndicate == 1]
+		set kitte.in_syndicate = 2
+		set sky_knows_these_joined.append("Kitt-E")
+	- {{GameState.frequencies["Phil"]}} [if phil.in_syndicate == 1]
+		set phil.in_syndicate = 2
+		set sky_knows_these_joined.append("Phil")
+	- {{GameState.frequencies["Rain"]}} [if rain.in_syndicate == 1]
+		set rain.in_syndicate = 2
+		set sky_knows_these_joined.append("Rain")
+	- {{GameState.frequencies["Hunt"]}} [if hunt.in_syndicate == 1]
+		set hunt.in_syndicate = 2
+		set sky_knows_these_joined.append("Hunt")
+	- thats all [if joined_syndicate.size() == sky_knows_these_joined.size() and sky_knows_these_joined.size() > 0]
+		=> continues_after_taking_tufs
+
+
+=> who_joined_syndicate
+
+~ continues_after_taking_tufs
+do wake_npc(theprotest)
+Sky: [if joined_syndicate.is_empty() == false]Good job. with that out of the way, [/if][wait=0.5c]I need to tell you something.[next=auto]
+Sky: We are certain now.[wait=0.5] there is an undercover within the waves.[next=auto]
+Sky: Can't let them jeopardize [i]the protest[/i].[next=auto]
+Sky: I want you to see if anyone is acting suspicious. [wait=0.5] Flynn and I are doing the same.[next=auto]
+Sky:  We need to find this bastard[wait=1.0], have a name for me next time we speak[if sky.romance > 2] please[/if].[next=auto]
+- Understood
+	do sky.relation += 1
+- Yes ma'am
+	do sky.romance += 1
+if yolsky.cooldown_words.has("we are dating"):
+	Sky: Oh also why did you tell Yolsky that we are dating?[next=auto]
+	if sky.romance >= 3:
+		Sky: Look[wait=0.5], I like you as well.[wait=0.5] but you can't go around saying random stuff.[next=auto]
+	else:
+		Sky: Should've talked with me first.[next=auto]
+Sky: See you[if sky.romance >= 3] soldier[/if].[next=auto]
+
+
+
+
+
+
+
+
+do save_from_dialogue("Sky", 11)
+~ save_point_11
+do GameState.npc_goes_offline(GameState.sky, 1600) # GOES OFFLINE TILL 2000
+while sky.online == false
+	=>< offline 
+
+do GameState.npc_goes_online(sky)
+
+
+
+
+
+
+
+
+Sky: I'm back.[next=auto]
+~ who_cop
+Sky: Things got real heated, we need to hurry. [next=auto]
+Sky: I eliminated some options, but need to be sure.[next=auto]
+Sky: Do you have any ideas who might be the cop?[next=auto]
+~ listing_names
+- Casey [if sky.cooldown_words.has("accused_casey") == false]
+	Sky: Look[wait=1], I don't like Casey as well but[wait=0.5] they have been around here forever, are you sure its them? 
+	do sky.cooldown_words.append("accused_casey")
+	- yes I am
+		Sky: Well then...[wait=1] I'm handling it.
+		set player_thinks_is_cop = "CASEY"
+	- no
+		Sky: Look it's not a[if sky.relation < 1] fucking[/if] joke.[next=auto]
+		Sky: Give me a name that you are certain is the rat.[next=auto]
+		=> listing_names
+- chrome [if chrome.met and sky.cooldown_words.has("accused_chrome") == false]
+	Sky: You're messing with me[wait=0.5], chrome is an asshole but not a cop[do sky.cooldown_words.append("accused_chrome")].[next=auto]
+	=> listing_names
+- Elektrat [if elektrat.met]
+	if sky.cooldown_words.has("not gonna ask you twice") == false
+		Sky: Not gonna ask you twice, are you sure?[do sky.cooldown_words.append("not gonna ask you twice")]
+		- I am sure
+		- no
+			=> listing_names
+	set player_thinks_is_cop = "Elektrat"
+- Kitt-e [if kitte.met]
+	if sky.cooldown_words.has("not gonna ask you twice") == false
+		Sky: Not gonna ask you twice, are you sure?[do sky.cooldown_words.append("not gonna ask you twice")]
+		- I am sure
+		- no
+			=> listing_names
+	set player_thinks_is_cop = "Kitt-E"
+- Phil [if phil.met]
+	if sky.cooldown_words.has("not gonna ask you twice") == false
+		Sky: Not gonna ask you twice, are you sure?[do sky.cooldown_words.append("not gonna ask you twice")]
+		- I am sure
+		- no
+			=> listing_names
+	set player_thinks_is_cop = "Phil"
+- Rain [if rain.met]
+	if sky.cooldown_words.has("not gonna ask you twice") == false
+		Sky: Not gonna ask you twice, are you sure?[do sky.cooldown_words.append("not gonna ask you twice")]
+		- I am sure
+		- no
+			=> listing_names
+	set player_thinks_is_cop = "Rain"
+- Hunt [if hunt.met]
+	if sky.cooldown_words.has("not gonna ask you twice") == false
+		Sky: Not gonna ask you twice, are you sure?[do sky.cooldown_words.append("not gonna ask you twice")]
+		- I am sure
+		- no
+			=> listing_names
+	set player_thinks_is_cop = "Hunt"
+- eliminated? [if sky.cooldown_words.has("eliminated?") == false]
+	do sky.cooldown_words.append("eliminated?")
+	Sky: I transmit reverse frequency to their location.[wait=0.5] so they can never use radiotext again.[next=auto]
+	Sky: Now answer.[next=auto]
+	=> listing_names
+
+
+
+
+
+Sky: Okay, got it.[next=auto]
+do triangulator_tuf_sounds.set(frequencies[player_thinks_is_cop], "res://Sounds/radio_static_trial.mp3")
+Sky: Do you have the TUF? can you triangulate it?
+- yes I can
+	Sky: Find the coordinates as soon as possible.[next=auto]
+	Sky: Type it here when you are done.
+	~ have_you_found_it
+	- found it
+		if triangulator_tuf_coordinates.has(frequencies[player_thinks_is_cop])
+			- {{triangulator_tuf_coordinates[frequencies[player_thinks_is_cop]]}}
+				Sky: Thank you.[next=auto]
+				=> back_in_a_second
+		- wait I couldnt
+			=> have_you_found_it
+	- I cant
+		Sky: Okay, nevermind.[wait=0.5] I'm handling it.[next=auto]
+- no
+	Sky: Okay.[wait=0.5] I'll see what I can do.[next=auto]
+
+
+~ back_in_a_second
+Sky: Be back in a second.[next=auto]
+do SteamManager.unlock_achievement("MERCHANT_OF_DEATH")
+set current_act = 3
+if third_act.size() > 0:
+	do! Global.create_custom_line("Terminal", str(third_act.size()) + " new frequencies acquired.")
+	do! Global.create_custom_line("Terminal", "Connection pool updated.")
+	do Global.returning_message("Terminal", "awaiting_command") # 30 for awaiting_commands title
+if GameState.cancelled_tufs.has("331.453 sf1"):
+	do! Global.break_noise_cancel()
+
+
+
+
+
+
+
+
+do save_from_dialogue("Sky", 14)
+~ save_point_14
+do GameState.npc_goes_offline(GameState.sky, 1650)
+while sky.online == false
+	=>< offline 
+
+do GameState.npc_goes_online(sky)
+
+
+
+
+
+
+
+
+Sky: There is something else you need to know.[next=auto]
+Sky: And no easy way to say this. [next=auto]
+- what is it
+- its okay
+	do sky.romance += 1
+- I like you too [if sky.romance >= 3]
+	do sky.romance += 2
+	do sky.cooldown_words.append("dating")
+	Sky: Ah[wait=0.5], that[wait=1] wasn't what I was going to say.[next=auto]
+	Sky: But I like you too.[next=auto]
+	Sky: It's nice we get to talk about this now,[wait=1] because things are about to go nuts.[next=auto]
+	Sky: And I could really use someone alongside me[next=auto]
+	- whats happening
+	- Im here
+		do sky.romance += 1
+	Sky: Just,[wait=1] stay with me okay.[next=auto]
+Sky: I am in An-Arkhos [wait=1.5] and we are planning to take down Xenar data center.[next=auto]
+- [shake]WHAT?[/shake]
+Sky: This is going to be much cleaner than the tower[wait=1], its already automated, no human employee.[next=auto]
+Sky: But I need you in the team.[next=auto]
+Sky: [wait=1]The fact that, there was an undercover here means they started suspecting something.[next=auto]
+Sky: We might've dealt with a cop but there will be others.[wait=0.5] We need to act now if we want to make a change.[next=auto]
+Sky: Not all words, not just walks.[wait=0.5] real change.[next=auto]
+Sky: [wait=1]I don't want an answer now.[wait=0.5] go away[wait=0.5], think this through, then come back with your answer.[next=auto]
+
+
+# END OF ACT 2
+
+
+if player_thinks_is_cop != "Hunt":
+	do GameState.wake_npc(hunt)
+	
+	
+	do GameState.npc_goes_offline(GameState.sky, 9999999999) # WAKE UP FROM HUNT
+	while sky.online == false
+		=>< offline 
+
+	do GameState.npc_goes_online(sky)
+	~ hunt_leaves_with_syndicate
+	# AN-ARKHOS PLAN CONTINUES
+	- cop was Hunt
+		Sky: Shit.[wait=0.5] what happened?
+		- He wanted the Syndicate
+			Sky: What did you tell him?
+			- I had to give some names
+				Sky: Who did you tell?
+				~ who_did_you_tell
+				- don't worry we are clear [if sky.cooldown_words.has("dont worry we are clear") == false]
+					do sky.cooldown_words.append("dont worry we are clear")
+					Sky: But it costs us who!?
+					=> who_did_you_tell
+				- Flynn [if given_to_hunt.has("Flynn") == true and sky.cooldown_words.has("Flynn given to hunt said") == false]
+					do sky.var_3 += 1
+					do sky.cooldown_words.append("Flynn given to hunt said")
+				- Yolsky [if given_to_hunt.has("Yolsky") == true  and sky.cooldown_words.has("Yolsky given to hunt said") == false]
+					do sky.var_3 += 1
+					do sky.cooldown_words.append("Yolsky given to hunt said")
+				- Elektrat [if given_to_hunt.has("Elektrat") == true  and sky.cooldown_words.has("Elektrat given to hunt said") == false]
+					do sky.var_3 += 1
+					do sky.cooldown_words.append("Elektrat given to hunt said")
+				- Phil [if given_to_hunt.has("Phil") == true and sky.cooldown_words.has("Phil given to hunt said") == false]
+					do sky.var_3 += 1
+					do sky.cooldown_words.append("Phil given to hunt said")
+				- Casey [if given_to_hunt.has("CASEY") == true and sky.cooldown_words.has("CASEY given to hunt said") == false]
+					do sky.var_3 += 1
+					do sky.cooldown_words.append("CASEY given to hunt said")
+				- Kitt-e [if given_to_hunt.has("Kitt-e") == true  and sky.cooldown_words.has("Kitt-e given to hunt said") == false]
+					do sky.var_3 += 1
+					do sky.cooldown_words.append("Kitt-e given to hunt said")
+				- chrome [if given_to_hunt.has("chrome") == true  and sky.cooldown_words.has("chrome given to hunt said") == false]
+					do sky.var_3 += 1
+					do sky.cooldown_words.append("chrome given to hunt said")
+				- Rain [if given_to_hunt.has("Rain") == true  and sky.cooldown_words.has("Rain given to hunt said") == false]
+					do sky.var_3 += 1
+					do sky.cooldown_words.append("Rain given to hunt said")
+				if sky.var_3 != given_to_hunt.size():
+					=> who_did_you_tell
+				else:
+					Sky: Shit.[wait=1] [shake]SHIT[/shake][wait=0.5] [shake]FUCKING SHIT![/shake][next=auto]
+					Sky: This wasn't supposed to happen.[next=auto]
+					Sky: And {{player_thinks_is_cop}}...[wait=1] fuck.[next=auto]
+					Sky: We could've found him
+					- its over
+					- can we do something
+					Sky: We should continue with the plan.[next=auto]
+					Sky: Can't let them down for nothing.[next=auto]
+					Sky: Are you in?[wait=1] Will you help me with the data center?[next=auto]
+					=> are_you_in
+
+else:
+	do save_from_dialogue("Sky", 15)
+	~ save_point_15
+	do GameState.npc_goes_offline(GameState.sky, 1700)
+	while sky.online == false
+		=>< offline 
+
+
+# PUT WAIT HERE
+
+
+
+
+Sky: I'm back.[next=auto]
+Sky: What do you say?
+~ are_you_in
+- I am in
+	=> player_said_yes_again
+- Im with you [if sky.romance >= 5]
+	Sky: Until the end?
+	- until the end
+		do sky.romance += 1
+		do SteamManager.unlock_achievement("SKY_IS_THE_LIMIT")
+		Sky: Lets fuck that data center up[do SteamManager.unlock_achievement("SKY_IS_LIMIT")].[next=auto]
+		=> player_in
+
+- thats crazy
+	=> does_that_mean_youll_help
+
+- No [if cop_right < 3]
+	=> player_said_no
+- Hell NO! [if cop_right > 3]
+	=> player_said_no
+
+~ player_said_no
+Sky: I need you[if GameState.player_name != ""] {{GameState.player_name}}[/if][next=auto]
+Sky: Can't do this without you.[wait=1][if sky.romance >= 3] don't leave me the moment I need you the most.[/if][next=auto]
+Sky: You know An-Arkhos works for the same purpose as us.[wait=1] only difference is their methods do cause change.[next=auto]
+Sky: Corporations started to get their shit together after decades.[wait=1] people speak in the streets that if corpos act shit, they will have what they deserve.
+- peaceful protests exist
+	Sky: Peaceful protest only works if the oppresor is peaceful.[next=auto]
+	Sky: And if they were[wait=0.5], we wouldn't call them opressors in the first place.[next=auto]
+	Sky: Do you think Gandhi was peaceful?[wait=1] Mandela was peaceful?[next=auto]
+	Sky: They all had militias supporting them.[wait=1] people fought for their freedom[wait=0.5] it has always been the case.[next=auto]
+	Sky: Can't expect your freedom to come in a peaceful silver platter.[wait=1] they won't stop oppressing unles you show them your blade.
+	- I understand
+		=> does_that_mean_youll_help
+	- No
+		=> player_said_no_again
+- they don't care about civilians
+	Sky: It is a war[if GameState.player_name != ""] {{GameState.player_name}}[/if][next=auto]
+	Sky: Do you know how many people fucking die because of their pollution?[wait=1] because of their monopoly upon the agriculture?[next=auto]
+	Sky: It doesn't rain anymore damn it.[next=auto]
+	Sky: Babies born with defects, with microplastics.[wait=1] our future is fucked.[wait=0.5] we can't even see the horizon behind the pollution line.[next=auto]
+	Sky: We are trying to stop deaths[wait=1] not cause them.
+	- I understand
+		=> does_that_mean_youll_help
+	- its friendly fire!
+		Sky: Look I agree it's shit.[wait=0.5] and I don't like it as much as you.[wait=1] but if no one does the shoveling, we will drown in it.[next=auto]
+		Sky: It is the fucking trolley problem[wait=0.5] and it is for the greater good.[next=auto]
+		Sky: Can't believe you made me say that.[next=auto]
+		- just notify people
+			Sky: Until we save them, most people are still part of the system.[next=auto]
+			Sky: They call the police[wait=0.5], we get fucked[wait=1] and our future gets fucked.[next=auto]
+			Sky: Can't risk that.
+			- okay I'll help
+				=> player_said_yes_again
+			- No
+				=> player_said_no_again
+=> END 
+
+
+~ does_that_mean_youll_help
+Sky: Does that mean you'll help.
+- yes
+	~ player_said_yes_again
+	Sky: Thank you.[next=auto]
+	Sky: It is time to fight the bad guys.[next=auto]
+	Sky: And we don't have a minute to spare.[next=auto]
+	=> player_in
+- no
+	~ player_said_no_again
+	Sky: Ah[wait=1], I was afraid this might happen.[next=auto]
+	Sky: In that case I need to ask of you something.[next=auto]
+	Sky: The opening we found in Xenar's control systems uses employee ID.[next=auto]
+	Sky: I need yours to get in.[next=auto]
+	- ID451208
+		=> id_given
+	- would this bite me later
+		Sky: I don't think it will.[wait=1] even if they are keeping logs, that data will be gone with the center.[next=auto]
+		Sky: So no,[wait=0.5] you will be safe.
+		- okay take it
+			- ID451208
+				=> id_given
+		- still no
+			=> still_no
+	- I cant
+		Sky: You are just afraid.[wait=0.5] hesitant.[next=auto]
+		Sky: It's not that you can't.[wait=0.5] It's that you wont.[next=auto]
+		Sky: Whether you help me or not I am doing it[wait=1], you know that.[next=auto]
+		Sky: Without the ID it's gonna be extremely hard.[next=auto]
+		if sky.romance >= 4:
+			Sky: So if you care about me at all.[next=auto]
+		Sky: If you have just a little bit of decency left in you[wait=1], say I WONT.[next=auto]
+		- take it
+			- ID451208
+				=> id_given
+		- I wont
+			=> no_for_the_last_time
+	- wont give it
+		=> still_no
+
+
+~ id_given
+do sky.cooldown_words.append("ID given")
+Sky: Thank you.[wait=1] [if sky.romance >= 4]I guess this is the end of our story.[/if][next=auto]
+if sky.cooldown_words.has("dating") or sky.romance > 4:
+	Sky: I really liked you.[wait=0.5] But apparently it wasn't going to work out anyway.[next=auto]
+~ debug
+Sky: See you.[next=auto]
+Sky: In another life[next=auto]
+do SteamManager.unlock_achievement("SKYFALL")
+do Global.start_ending_timer("ENDING_3", 30)
+=> forever_offline
+
+~ still_no
+do sky.cooldown_words.append("ID not given")
+Sky: Whether you help me or not I am doing it[wait=1], you know that.[next=auto]
+Sky: Without the ID it's gonna be extremely hard.[next=auto]
+Sky: So if you care about me at all[wait=1], please.[next=auto]
+- okay take it
+	=> id_given
+- NO
+	~ no_for_the_last_time
+	do SteamManager.unlock_achievement("SKYFALL")
+	Sky: Goodbye.[next=auto]
+	# WAIT A BIT
+	do Global.start_ending_timer("ENDING_4", 30)
+	=> forever_offline
+
+
+
+~ player_in
+Sky: Connect 453.145 sf1[next=auto]
+Sky: We'll continue talking from there.
+=> player_did_not_join_second_time_offline
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# options should include recruited ones such as Elektrat / Kitt-e / Phil / Rain / Hunt
+
+#~ demo_ended
+#Computer: comp. repetitive transmission:[next=auto]
+#Computer: YOU HAVE REACHED THE END OF THE DEMO[next=auto]
+#if GameState.radioman.met == false or GameState.trix.var_1 == 0:
+#	Computer: There are still mysteries to uncover in the net. You can keep browsing. When they are over, this message will repeat as "100% Completed".[next=auto]
+#else:
+#	Computer: You have completed %100 of the demo.[next=auto]
+#Developer: Thank you for playing.\n\n[next=auto]
+#Developer: [url=https://store.steampowered.com/app/3418160?utm_source=nextfestdemo][u]YOU CAN WISHLIST RADIOTEXT ON STEAM[/u][/url]
+#=> END
+
+
+
+~ player_did_not_join_second_time_offline
+~ forever_offline
+do save_from_dialogue("Sky", 30)
+~ save_point_30
+do GameState.npc_goes_offline(GameState.sky, 9999999999) #MAKING THIS 10 TRILLION SINCE SHE IS HEARTBROKEN FROM PLAYER NOT JOINING
+while sky.online == false
+	=>< offline 
+
+do GameState.npc_goes_online(sky)
+
+~ joined_arhos_externally
+Sky: So you can join An-Arkhos without my lead after all.[next=auto]
+=> player_did_not_join_second_time_offline
+
+~ offline
+Computer: comp. repetitive transmission:[next=auto]
+Computer: Hey there! I am not on the wave rn. ping me back later
+=> END
+
+~ RadiotextExplanation
+Sky: Voici [url=FreeDictionaryRadiotext][u][b]Radiotext[/b][/u][/url].[wait=1] ça permet de communiquer sans que les gouvernements ou entreprisent nous espionnent.[wait=1][next=auto][ID:RADIOTEXTEXPLANATION][#radiotext, radiotext?, quoi, c quoi, c'est quoi, qu'est-ce que c'est, c'est quoi radiotext, c quoi radiotext, qu'est-ce que radiotext]
+Sky: Ca utilise des ondes radio [url=FreeDictionaryLong Range][u]longue portée[/u][/url] pour transférer des données, [url=FreeDictionaryE2E][u]E2E[/u][/url] chiffré et [url=FreeDictionaryDecentralized][u]décentralisé[/u][/url].[wait=1][next=auto]
+Sky: La clé que tu as branché avait un émetteur d'ondes radio, en plus de ce terminal.[next=auto]
+=> END
+
+~ how_do_I_locate_tuf
+Sky: Connect this frequency: 543.210 sf1[do sky.cooldown_words.append("triangulator_freq_given")][next=auto]
+Sky: It will connect you to a remote terminal which then will allow you to [url=FreeDictionaryTriangulation][u]triangulate[/u][/url] the location of a frequency.
+- How does this work
+	~ how_does_tria_works
+	do sky.cooldown_words.append("how does tria works asked")
+	if GameState.plugin_bitmap_installed == 2:
+		do Global.create_empty_lines("Sky",false)
+		[font_size=25]|---------- [pulse]Loading Image[/pulse] ----------|[/font_size][do Global.create_image("Sky", "tria_guide.png", true, Vector2(369, 275))][next=auto]
+		[speed=5][font_size=25]|___________________________________|[/font_size][next=auto]
+		do Global.create_empty_lines("Sky",true)
+	else:
+		Computer: [color=#FF5555]err: invalid_parser//[/color] bitmap_map=7dofkpkuafvbkvdusvhkpa.img
+	Sky: ">6" in the image is your reciever spot. number shows the distance. it is 6 units away from the transmission.[next=auto]
+	Sky: You will have 3 spots. Blinking spot is the one which will move next.[next=auto]
+- what is triangulation
+	Sky: If you listen a radiowave from 3 different spots, in the shape of a triangle, then narrow that triangle to the edge where reception is the highest, you can find its location.[next=auto]
+	Sky: Assuming you do the narrowing step multiple times.
+	- How does triangulator work [if sky.cooldown_words.has("how does tria works asked") == false]
+		=> how_does_tria_works
+	- got it
+
+Sky: In triangulator type "set tuf 331.453 sf1"[next=auto]
+Sky: It is the frequency conference servers are communicating to one another.[wait=0.5] Once you locate, you'll transmit reverse frequency to noise cancel it, it should mess up the server side sync.[next=auto]
+=> END
+
+~ how_do_I_noise_cancel
+Sky: There this thing called Specter.[wait=0.5] chrome made it years ago.[next=auto]
+Sky: Allows you to see radiowaves, visualizing the spectrum.[next=auto]
+ if specter.met == true:
+	- I've connected to it
+		Sky: Oh, so I see you've met the legend himself.[wait=0.5] good job.[do sky.relation += 1][next=auto]
+		Sky: If you talk to him again say fuck you on my behalf.[do sky.cooldown_words.append("fuck you chrome")][next=auto]
+else:
+	- how do I connect?
+		Sky: You first need to type "establish link remote device 792.195 sf14"[set GameState.specter_access_typed = 1][next=auto]
+		Sky: Then type "request remote access"[next=auto]
+		Sky: When it asks for the magic word, just type "please".[next=auto]
+=> END
+
+~ questions
+if syndicate_explained == false:
+	=>< Syndicate
+else:
+	=> then_who
+- alors qui
+	~ then_who
+	=>< an_arkhos
+
+	- appelle la police
+		=>< the_police
+		- employees?
+			=>< people_inside
+			- et notre salaire?
+				=>< my_money
+			- je dois faire quoi
+				=> what_to_do
+		- mon salaire?
+			=>< my_money
+			
+			- 3 personnes?
+				=>< people_inside
+			- je dois faire quoi
+				do GameState.cop_right += 1
+				=> what_to_do
+
+	- mon salaire?
+		=>< my_money
+		- et les employés?
+			=>< people_inside
+		- je dois faire quoi
+			do GameState.cop_right += 1
+			=> what_to_do
+	- je dois faire quoi
+		do GameState.witness += 1
+		=> what_to_do
+=> END
+
+~ Syndicate
+set GameState.syndicate_explained = true
+Sky: Nous sommes un groupe de cyber-activistes, nommé [url=FreeDictionarySyndicate][u][b]Le Syndicat[/b][/u][/url][next=auto]
+Sky: Ce n'est pas nous. on accorde une grande importance à la vie des civils et on essaye de créer un changement sans blesser personne.[next=auto]
+=> END
+
+~ an_arkhos
+Sky: Il y a un autre groupe[wait=0.5] qui s'appelle [url=FreeDictionaryAn-Arkhos][b][u]An-Arkhos[/u][/b][/url][next=auto]
+Sky: Ils sont bien plus à la pointe de la tech que nous. pas de coopération et quand même un peu radicaux.[next=auto]
+Sky: Cependant j'ai un lien à l'intérieur, qui me permet en quelque sorte de négocier[wait=0.7] ou[wait=0.7] les raisonner*. [next=auto]
+Sky: C'est comme ça que j'ai pu te contacter toi[wait=1] et tes collègues.[next=auto]
+=> END
+
+~ people_inside
+do GameState.syndicate_left += 1
+Sky: Cette partie est intéressante. la tour tout entière est presque totalement automatisée.[next=auto]
+Sky: Tu te souviens avoir déjà vu quelqu'un en dehors de ton espace de travail? quelqu'un de vivant?[next=auto]
+Sky: Tu pourrais penser que les toilettes et les couloirs fonctionneraient avec des [url=FreeDictionaryAuto-Cleaners][u]nettoyeurs automatiques[/u][/url] mais qu'en est-il de la haute direction? RH, AR, service juridique, sécurité?[next=auto]
+Sky: Ils ont automatisé tout le putain de bâtiment.[wait=1] Sauf ton étage.[next=auto]
+Sky: Ne t'inquiète pas, j'ai donné des clés aux [i]deux[/i] autres personnes qui travaillaient avec toi.[next=auto]
+=> END
+
+~ the_police
+do GameState.cop_right += 1
+Sky: Je te le conseille pas.[next=auto]
+Sky: [url=FreeDictionaryArkhos][u][b]An-Arkhos[/b][/u][/url] ne sont pas du genre à se laisser faire.[wait=0.7] tu dois bien comprendre, ce n'est pas un plan d'une nuit dont on parle.[next=auto]
+Sky: Ils doivent préparer ça depuis longtemps.[wait=1] tu ne peux pas faire sauter toute une [url=FreeDictionaryContinuity Tower][u]tour de continuité[/u][/url] en une nuit.[next=auto]
+Sky: Ils ont probablement pris toutes les données des employés avec eux[wait=0.5], y compris proches et adresses de domicile.[next=auto]
+=> END
+
+~ my_money
+do GameState.cop_right += 1
+Sky: Quand j'ai négocié pour les 3 personnes dans le bâtiment, j'ai aussi demandé à propos de leur survie[wait=0.7], leur salaire.[next=auto]
+Sky: [url=FreeDictionaryArkhos][u][b]Arkhos[/b][/u][/url] m'a assuré que l'indemnité serait versée sous forme de somme forfaitaire correspondant à deux ans de salaire.[wait=1] ça va arriver sur les comptes aujourd'hui, vers cette heure[do Global.play_sound("res://Sounds/phone_notif.wav")]
+ #play bank notification sound
+- merde
+	Sky: Quoi?
+	- j'ai eu le virement
+		Sky: Cool. mais aussi pas cool.[next=auto]
+		Sky: Ca ressemble à un geste à la Robin des Bois innocent, mais en fait c'est leur moyen de se protéger.[next=auto]
+		Sky: Si tu vas voir la police, t'auras le relevé d'un virement bancaire entrant.[wait=1] le jour où ton lieu de travail a été détruit.[next=auto]
+=> END
+
+#SINCE SECRETS ARE JUST READ, THEIR MUTATIONS-FUNCTIONS DONT WORK
+
+~ secret_1
+Sky: Calme toi cowboy, c'est pas si grave.[next=auto][ID:WTF][#wtf,fuck,what the fuck, motherfucker, fuck you, fuck u, va te faire foutre, va te faire voir, salope, c'est quoi ce bordel, c'est quoi cette merde]
+Sky: [if sky.player_sweared == 1]Je ne t'ai pas hacké ou quoi que ce soit.[/if][next=auto]
+Sky: [if sky.player_sweared == 1]On recommence[/if]
+=> END
+
+~ secret_2
+Sky: Je suis Sky.[ID:WHORU][#t'es qui, t qui, qui t'es, quel est ton nom, comment tu t'appelles, ton nom, c'est quoi ton nom, Sky]
+=> END
+
+~ secret_3
+Sky: Ouais. je voulais dire me faire confiance et brancher la clé.[ID:JACKIN][#connecter?]
+=> END
+
+~ secret_4
+Sky: T'es censé l'écrire dans ton terminal. pas ici.[ID:CACHE][#cache?, cache, mon cache, quel cache, c'est quoi un cache]
+=> END
+
+~ secret_5
+Sky: Ouais. comme un cowboy du cyberespace.[ID:COWBOY][#cowboy?, cowboy]
+=> END
+
+~ secret_6
+Sky: D'accord.[ID:SAYLESS][#n'en dit pas plus, chut, queen, slay, reine]
+=> END
+
+~ secret_7
+Sky: Pas de problème.[ID:THANKU][#merci, merci beaucoup, mrc]
+=> END
+
+~ secret_8
+Sky: This year is the 10th anniversary of the climate protests.[ID:THEPROTEST][#the protest, protests]
+Sky: There hasn't been any protest since then.[wait=1] not only they prevent them from happening but also put fear inside people to stay down.
+Sky: After ten years, we are gathering people inside waves for another one. we will walk towards the XENAR headquarters downtown and make them to shut the [i]data center[/i] down.
+=> END
+
+
+~ player_repeats
+Sky: [[On en a déjà parlé. Pas besoin de se répéter.|On en a déjà parlé.|J'ai pas envie de revenir dessus.]][ID:REPEAT]
+=> END
+
+~ continue_dialogue_after_secret
+Sky: [[Je disais donc...|Pour en revenir aux faits,|Bref, |Comme je disais...]][ID:continue_dialogue_after_secret]
+=> END
+
+
+
+~ FLYNN
+Sky: Yeah Flynn.[ID:FLYNN][#flynn, what do you think about flynn, who is flynn, flynn?]
+Sky: He is our tech guy. he is a decent person[wait=1]. sometimes tries so hard to be funny though.
+=> END
+
+~ CHROME
+Sky: Chrome.[wait=0.5] He is an asshole.[ID:CHROME][#chrome]
+Sky: We are lucky he is on the our side though[wait=0.5], against the corps I mean.
+=> END
+
+~ CASEY
+Sky: Yes, the writer fella.[wait=0.5] They don't like me being around.[ID:CASEY][#casey]
+Sky: Thinks the switch they made will be done by everyone given enough time.[wait=0.5] That people will do the right thing.
+Sky: And talks a bit much to be honest[wait=0.5], at least for my taste.
+Sky: I don't think we stand a chance against the system without organizing people.
+=> END
+
+~ RUMOR
+Sky: Don't mention her[wait=0.5], she carries information around.[ID:RUMOR][#rumor]
+Sky: Always creates problems because she doesn't know what and where to talk about.
+=> END
+
+~ RADIOMAN
+Sky: I don't know who you are talking about.[ID:RADIOMAN][#radioman]
+=> END
+
+~ YOLSKY
+Sky: Yolsky is a newbie, just joined.[ID:YOLSKY][#yolsky]
+Sky: I believe you know him.
+=> END
+
+~ TRIX
+Sky: It is the henchman of An-Arkhos.[ID:TRIX][#trix]
+Sky: Their way of testing the applicants.[wait=1] haven't heard anyone beating all tests.
+=> END
+
+~ ARKHOS
+Sky: Mors mundi veteris.[ID:ARKHOS][#arkhos, what do you think about arkhos, who is arkhos, arkhos?, anarkhos an-arkhos, mors mundi veteris, nomos, an-nomos]
+do GameState.arkhos_left += 1
+Sky: [if GameState.lines_created < 1000]I understand what they are trying to do.[wait=1] I mean we are on the same path after all.[/if][next=auto]
+Sky: [if GameState.lines_created < 1000 and sky.relation > 2 or GameState.lines_created < 1000 and sky.romance > 2]Sometimes I find myself questioning even.[wait=1] they make a change[wait=0.5] way more than we do[wait=1], just because of our moral code.[/if][next=auto]
+Sky: [if GameState.lines_created < 1000]But we are doing this for people. can't risk their life in the process.[/if][next=auto]
+=> END
+
+
+~ profile_info
+Véritable Liberté
+=> ENDreedom
+=> END
